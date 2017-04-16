@@ -1,0 +1,11 @@
+{
+  "name": "RedditClone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Dhruv222/Reddit_Clone",
+  "author": "Dhruv Sharma",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
