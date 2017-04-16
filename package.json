@@ -5,6 +5,9 @@
   "repository": "https://github.com/Dhruv222/Reddit_Clone",
   "author": "Dhruv Sharma",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.15.2"
   }
