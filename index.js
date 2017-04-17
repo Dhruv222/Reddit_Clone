@@ -1,21 +1,55 @@
 const express = require('express');
 const server = express();
-const topicsModel = require(__dirname + "/app/models/topics");
-const topics = new topicsModel();
+const timelineClass = require(__dirname + "/app/models/timeline");
+const timeline = new timelineClass();
 const PORT = 3001;
+let lastPostID = 0;
 
-server.get('/', function(req, res){
-    res.send('Hello World!');
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+server.get('/timeline', function(req, res){
+    res.send(timeline.postList);
 });
 
-server.get('/topics', function(req, res){
-    res.send(topics.topicsList)
+server.get('/timeline/:num', function(req, res) {
+    if (isNumeric(req.params.num)){
+        let num = req.params.num;
+        res.send(timeline.getTopPosts(num));
+    }
+    else{
+        res.status(404).end("Not Acceptable");
+    }
 });
-server.get('/addpost', function(req, res){
-    console.log("inside addpost");
-    let newPost = topics.addPost("Topic");
-    res.send(newPost)
+
+server.get('/post/:id', function(req, res){
+    let id = req.params.id;
+    res.send(timeline.getScore(id));
+});
+
+server.post('/addpost', function(req, res){
+    let newPost = timeline.addPost("Topic", lastPostID);
+    lastPostID++;
+    res.send(newPost);
 })
+
+server.post('/post/:id/:vote', function(req, res){
+    let id  = req.params.id;
+    let voteType = req.params.vote;
+
+    if (voteType == "upvote") {
+        timeline.addUpvote(id);
+        res.send(id+":"+voteType);
+    }
+    else if (voteType == "downvote") {
+        timeline.addDownvote(id);
+        res.send(id+":"+voteType);
+    }
+    else {
+        res.status(404).send("Not Acceptable");
+    }
+});
 
 server.listen(PORT, function(){
     console.log("Reddit App is running on port " + PORT);
