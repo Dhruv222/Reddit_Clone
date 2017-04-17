@@ -9,6 +9,8 @@ function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+server.use(express.static('public'))
+
 server.get('/timeline', function(req, res){
     res.send(timeline.postList);
 });
