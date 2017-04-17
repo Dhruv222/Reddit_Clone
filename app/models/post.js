@@ -1,6 +1,7 @@
 class post {
-    constructor(topic) {
-        this.topic = topic;
+    constructor(name) {
+        console.log("New Post:", name);
+        this.topic = name;
         this.upvotes = 0;
         this.downvotes = 0;
     }
