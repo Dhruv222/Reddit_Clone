@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const timelineClass = require(__dirname + "/app/models/timeline");
 const timeline = new timelineClass();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 let lastPostID = 0;
 
 function isNumeric(n) {
