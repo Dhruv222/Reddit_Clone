@@ -42,16 +42,41 @@ server.post('/post/:id/:vote', function(req, res){
 
     if (voteType == "upvote") {
         timeline.addUpvote(id);
-        res.send(id+":"+voteType);
+        res.send(timeline.getScore(id).toString());
     }
     else if (voteType == "downvote") {
         timeline.addDownvote(id);
-        res.send(id+":"+voteType);
+        res.send(timeline.getScore(id).toString());
     }
     else {
         res.status(404).send("Not Acceptable");
     }
 });
+
+server.get('/test-data', function(req, res){
+    let numberOfPosts = Math.floor(50 * Math.random());
+    console.log(numberOfPosts,'to be Generated')
+    let totalPosts = numberOfPosts+lastPostID;
+    for (var num = lastPostID; num < totalPosts; num++, lastPostID++) {
+        
+        let numberOfUpvotes = Math.floor(50 * Math.random());
+        console.log("\n Post", num, "has", numberOfUpvotes, "upvotes.")
+        let numberOfDownvotes = Math.floor(50 * Math.random());
+        console.log("Post", num, "has", numberOfDownvotes, "downvotes.")
+
+        timeline.addPost("Topic"+num, num);
+        
+        for (var index = 0; index < numberOfUpvotes; index++) {
+            timeline.addUpvote(num);
+        }
+        
+        for (var index = 0; index < numberOfDownvotes; index++) {
+            timeline.addDownvote(num);
+        }
+                
+    }
+    res.send("Testing Data Created with " + num + " entries.");
+})
 
 server.listen(PORT, function(){
     console.log("Reddit App is running on port " + PORT);
