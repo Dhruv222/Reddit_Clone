@@ -10,10 +10,16 @@
         <div class="page-header">
             <h1>Reddit Clone</h1>
         </div>
-        <!--Create a list for the Top Posts-->
-        <ul id="topPosts" class="container">
-        </ul>
-
+        <div class="container">
+            <!--Create Post Div-->
+            <div class="create-post row">
+                <input type="text" name="newPostData" placeholder="Create Post" class="col-md-10">
+                <input type="button" name="newPostButton" class="btn btn-primary col-md-2" value="Create Post" onClick="addPost();">
+            </div>
+            <!--Create a list for the Top Posts-->
+            <ul id="top-posts">
+            </ul>
+        </div>
     </body>
     <script src="/static/index.js"></script>
 </html>

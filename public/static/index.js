@@ -1,5 +1,5 @@
-const timelineDOM = $("#topPosts");
-
+const timelineDOM = $("#top-posts");
+console.log(timelineDOM)
 function ajaxVoting(postID, type) {
     $.ajax({type:"POST",
             url: `post/${postID}/${type}`,
@@ -10,16 +10,29 @@ function ajaxVoting(postID, type) {
     });
 }
 
-function createPostHtml(post) {
+function addPost() {
+    let postData = $("[name=newPostData]").val();
+    console.log($("[name=newPostData"));
+    console.log(postData);
+    $.ajax({
+        type: "POST",
+        url: `addpost/${postData}`,
+        success: function(result) {
+            return true;
+        }
+    });
+}
+
+function postHtml(post) {
     let postString = `
     <li class="row">
         <div class="col-md-6 post">
             ${post.topic}
         </div>
         <div class="col-md-6 pull-right scoring">
-           <button type="button" postID=${post.id} class="btn btn-primary" onClick="onUpvote(this);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-           <a href="" postID=${post.id}>${post.upvotes - post.downvotes}</a>
-           <button type="button" postID=${post.id} class="btn btn-primary" onClick="onDownvote(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+           <button type="button" postID=${post.id} class="btn btn-primary pull-right" onClick="onDownvote(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+           <a href="" postID=${post.id} class= "pull-right">${post.upvotes - post.downvotes}</a>
+           <button type="button" postID=${post.id} class="btn btn-primary pull-right" onClick="onUpvote(this);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
        </div>
     </li>
     `;
@@ -27,6 +40,7 @@ function createPostHtml(post) {
         return true;
     }
     else {
+        console.log("getting post failed!")
         return false;
     }
     
@@ -47,13 +61,16 @@ function onDownvote(element) {
 $(document).ready(function() {
 
     let timeline;
-    $.ajax({url: 'timeline/20', success: function(results){
-        timeline = results;
-        for (var index = 0; index < timeline.length; index++) {
-            var element = timeline[index];
-            createPostHtml(element);            
+    $.ajax({
+        url: 'timeline/20',
+        success: function(results){
+            timeline = results;
+            for (var index = 0; index < timeline.length; index++) {
+                var element = timeline[index];
+                postHtml(element);            
+            }
         }
-    }})
+    });
 
 
 })

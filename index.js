@@ -30,10 +30,16 @@ server.get('/post/:id', function(req, res){
     res.send(timeline.getScore(id));
 });
 
-server.post('/addpost', function(req, res){
-    let newPost = timeline.addPost("Topic", lastPostID);
-    lastPostID++;
-    res.send(newPost);
+server.post('/addpost/:postData', function(req, res){
+    let newPostData = req.params.postData;
+    if ( 0 < newPostData.length < 256){    
+        let newPost = timeline.addPost(newPostData, lastPostID);
+        lastPostID++;
+        res.send(newPost);
+    }
+    else{
+        res.send(404);
+    }
 })
 
 server.post('/post/:id/:vote', function(req, res){
