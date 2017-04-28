@@ -1,5 +1,6 @@
-const timelineDOM = $("#top-posts");
-console.log(timelineDOM)
+const topPostsDOM = $("#top-posts");
+const timelineDOM = $("#timeline");
+
 function ajaxVoting(postID, type) {
     $.ajax({type:"POST",
             url: `post/${postID}/${type}`,
@@ -23,7 +24,7 @@ function addPost() {
     });
 }
 
-function postHtml(post) {
+function postHtml(post, listDOM) {
     let postString = `
     <li class="row">
         <div class="col-md-6 post">
@@ -36,7 +37,7 @@ function postHtml(post) {
        </div>
     </li>
     `;
-    if (timelineDOM.append(postString)) {
+    if (listDOM.append(postString)) {
         return true;
     }
     else {
@@ -67,7 +68,18 @@ $(document).ready(function() {
             timeline = results;
             for (var index = 0; index < timeline.length; index++) {
                 var element = timeline[index];
-                postHtml(element);            
+                postHtml(element, topPostsDOM);            
+            }
+        }
+    });
+
+    $.ajax({
+        url: 'timeline',
+        success: function(results){
+            timeline = results;
+            for (var index = timeline.length - 1; index > -1; index--) {
+                var element = timeline[index];
+                postHtml(element, timelineDOM);            
             }
         }
     });
