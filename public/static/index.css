@@ -2,14 +2,21 @@ ul {
     list-style-type: none;
 }
 
+.create-post {
+    display: flex;
+    justify-content: center;
+}
+
 .post {
-    background-color: whitesmoke;
+    background-color: #E8E8E8;
     padding: 5px;
     margin: 10px;
     border-color: black;
     display: flex;
     align-items: center;
+    border-radius: 15px;
 }
+
 .btn, .btn:focus, .btn:active{
     color: whitesmoke;
     background-color: #FF4500;
@@ -19,6 +26,11 @@ ul {
 .btn:hover {
     background-color:  #FFC47F;
     color: #FF4500;
+}
+
+
+[name="newPostButton"] {
+    margin: 0 0 0 0.5em;
 }
 
 .nav-tabs>li>a {
