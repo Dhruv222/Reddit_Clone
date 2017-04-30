@@ -7,8 +7,6 @@ ul {
 }
 
 .nav-header {
-    background-color: #FF4500;
-    color: whitesmoke;
     display:flex;
     justify-content: center;
     align-items: center;
