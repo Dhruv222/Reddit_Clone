@@ -1,3 +1,35 @@
 ul {
     list-style-type: none;
 }
+
+.post {
+    background-color: whitesmoke;
+    padding: 5px;
+    margin: 10px;
+    border-color: black;
+}
+.btn, .btn:focus, .btn:active{
+    color: whitesmoke;
+    background-color: #FF4500;
+    border: #FF4500;
+    margin: 0 0 0 1em;
+}
+.btn:hover {
+    background-color:  #FFC47F;
+    color: #FF4500;
+}
+
+.nav-tabs>li>a {
+    color: #FF4500;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    color: whitesmoke;
+    background-color: #FF4500;
+}
+
+.post-string {
+    color: blue;
+}

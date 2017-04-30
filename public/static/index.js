@@ -5,7 +5,7 @@ function ajaxVoting(postID, type) {
     $.ajax({type:"POST",
             url: `post/${postID}/${type}`,
             success: function(results){          
-                let scoreElement = $("a[postID='"+postID+"']");
+                let scoreElement = $("div[postID='"+postID+"']>strong");
                 scoreElement.html(results);
             }
     });
@@ -13,12 +13,11 @@ function ajaxVoting(postID, type) {
 
 function addPost() {
     let postData = $("[name=newPostData]").val();
-    console.log($("[name=newPostData"));
-    console.log(postData);
     $.ajax({
         type: "POST",
         url: `addpost/${postData}`,
         success: function(result) {
+            $("[name=newPostData]").val("");
             return true;
         }
     });
@@ -26,14 +25,14 @@ function addPost() {
 
 function postHtml(post, listDOM) {
     let postString = `
-    <li class="row">
-        <div class="col-md-6 post">
+    <li class="row post">
+        <div class="col-xs-6 post-string">
             ${post.topic}
         </div>
-        <div class="col-md-6 pull-right scoring">
-           <button type="button" postID=${post.id} class="btn btn-primary pull-right" onClick="onDownvote(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-           <a href="" postID=${post.id} class= "pull-right">${post.upvotes - post.downvotes}</a>
-           <button type="button" postID=${post.id} class="btn btn-primary pull-right" onClick="onUpvote(this);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <div class="col-xs-6 pull-right scoring">
+           <button type="button" postID=${post.id} class="btn pull-right" onClick="onDownvote(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+           <button type="button" postID=${post.id} class="btn pull-right" onClick="onUpvote(this);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+           <div postID=${post.id} class= "pull-right"><strong>${post.upvotes - post.downvotes}</strong></div>
        </div>
     </li>
     `;

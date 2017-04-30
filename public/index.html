@@ -3,6 +3,7 @@
         <meta charset="utf-8">
         <title>Reddit Clone</title>
         <script src="/static/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+        <script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/static/index.css">
     </head>
@@ -13,16 +14,27 @@
         <div class="container">
             <!--Create Post Div-->
             <div class="create-post row">
-                <input type="text" name="newPostData" placeholder="Create Post" class="col-md-10">
-                <input type="button" name="newPostButton" class="btn btn-primary col-md-2" value="Create Post" onClick="addPost();">
+                <input type="text" name="newPostData" placeholder="Create Post" class="col-xs-10">
+                <input type="button" name="newPostButton" class="btn btn-primary col-xs-1 col-xs-offset-1" value="Publish" onClick="addPost();">
             </div>
-            <!--Create a list for the Top Posts-->
-            <ul id="top-posts">
-                
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#hot" role="tab" data-toggle="tab">hot!</a>
+                </li>
+                <li role="presentation"><a href="#new" role="tab" data-toggle="tab">new</a>
+                </li>
             </ul>
-            <ul id="timeline">
-                
-            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="hot">
+                    <ul id="top-posts">
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="new">
+                    <ul id="timeline">
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </body>
     <script src="/static/index.js"></script>
