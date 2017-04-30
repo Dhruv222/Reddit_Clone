@@ -13,12 +13,11 @@
         </div>
         <div class="container">
             <!--Create Post Div-->
-            <form>
-
-                    <div class="create-post row text-center">
-                        <input type="text" name="newPostData" placeholder="Create Post" class="col-xs-9">
-                        <button type="button" name="newPostButton" class="btn col-xs-2" onClick="addPost();">Publish</button>
-                    </div>
+            <form class="create-post-form">
+                <div class="create-post row">
+                    <input type="text" name="newPostData" placeholder="Create Post" class="col-xs-9">
+                    <button type="submit" name="newPostButton" class="btn col-xs-2" onClick="addPost(this);">Publish</button>
+                </div>
             </form>
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#hot" role="tab" data-toggle="tab">hot!</a>

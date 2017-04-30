@@ -1,6 +1,8 @@
 const topPostsDOM = $("#top-posts");
 const timelineDOM = $("#timeline");
 
+$(".create-post-form").action = addPost();
+
 function ajaxVoting(postID, type) {
     $.ajax({type:"POST",
             url: `post/${postID}/${type}`,
