@@ -1,3 +1,5 @@
+//Class for an individual post
+
 class post {
     constructor(name, id) {
         this.id = id;

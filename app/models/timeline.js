@@ -1,5 +1,8 @@
 const post = require(__dirname + "/post.js");
 
+
+//custom function to sort the timeline array
+
 function compare(postA, postB){
     if (postA.score() < postB.score())
         return 1;
@@ -8,6 +11,9 @@ function compare(postA, postB){
     else
         return 0;
 }
+
+
+//class for the timeline, uses the post class
 
 class timeline {
     constructor(){

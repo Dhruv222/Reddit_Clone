@@ -11,12 +11,19 @@ function isNumeric(n) {
 
 server.use(express.static('public'))
 
+
+//Sends all the posts in the chronological order
+
 server.get('/timeline', function(req, res){
     res.send(timeline.postList);
 });
 
+
+//sends the top posts besed on the number being sent
+// Currently that number is 20
+
 server.get('/timeline/:num', function(req, res) {
-    if (isNumeric(req.params.num)){
+    if (isNumeric(req.params.num) && req.params.num < timeline.postList.length){
         let num = req.params.num;
         res.send(timeline.getTopPosts(num));
     }
@@ -25,22 +32,38 @@ server.get('/timeline/:num', function(req, res) {
     }
 });
 
+
+// Gets the score for the id
+
 server.get('/post/:id', function(req, res){
     let id = req.params.id;
-    res.send(timeline.getScore(id));
+    if (isNumeric(id) && id < timeline.postList.length){
+        res.status(200).send(timeline.getScore(id));
+    }
+    else {
+        res.status(406).send("id parameter is either not a number or there exists no post of that id.")
+    }
+    
 });
+
+
+// Creates the new post with sent data
 
 server.post('/addpost/:postData', function(req, res){
     let newPostData = req.params.postData;
     if ( 0 < newPostData.length < 256){    
         let newPost = timeline.addPost(newPostData, lastPostID);
         lastPostID++;
-        res.send(newPost);
+        res.status(200).send(newPost);
     }
     else{
-        res.send(404);
+        res.status(406).send("The post length should be less than 256 characters.");
     }
 })
+
+
+
+// Posts the upvotes and downvotes for a particular post id
 
 server.post('/post/:id/:vote', function(req, res){
     let id  = req.params.id;
@@ -55,9 +78,13 @@ server.post('/post/:id/:vote', function(req, res){
         res.send(timeline.getScore(id).toString());
     }
     else {
-        res.status(404).send("Not Acceptable");
+        res.status(406).send("Not Acceptable");
     }
 });
+
+
+// Creates test data for visualisation for the website
+// By generating random values for upvotes and downvotes
 
 server.get('/test-data', function(req, res){
     let numberOfPosts = Math.floor(50 * Math.random());
